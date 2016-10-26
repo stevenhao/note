@@ -1,0 +1,21 @@
+#!/bin/bash
+
+CMD_STR=""
+for I in $@; do
+  CMD_STR="$CMD_STR $I"
+done
+
+TMP_FILE=~/.note/note-$$
+touch $TMP_FILE || echo "meed write permissions to $TMP_FILE"
+
+$@ 2> >(tee $TMP_FILE >&2)
+EXIT_STATUS=${PIPESTATUS[0]} # exit status
+
+ICON1=~/.note/icons/note-green.png
+ICON2=~/.note/icons/note-red.png
+
+if [ $EXIT_STATUS = 0 ]; then
+  head -n1 $TMP_FILE | terminal-notifier -contentImage $ICON1 -title 'Success' -subtitle "$CMD_STR"
+else
+  head -n1 $TMP_FILE | terminal-notifier -contentImage $ICON2 -title 'Error' -subtitle "$CMD_STR"
+fi
