@@ -29,7 +29,7 @@ To test your installation, run `note sleep 1`. You should receive an alert when 
 A long running command: 
 - `note git clone https://github.com/fivethirtyeight/data.git`
 - `note brew install coreutils moreutils findutils `
-- `note gulp`
+- `note npm install`
 
 A build system that "watch"es your file system:
 - `nodemon -w src -x note gulp` (instead of `gulp watch`)
